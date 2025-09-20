@@ -1,0 +1,102 @@
+# Music from Drawings Pro - Environment Configuration
+
+# =============================================================================
+# AI API Keys (Required for full functionality)
+# =============================================================================
+
+# Google Gemini API for image analysis
+# Get your key from: https://makersuite.google.com/app/apikey
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Music Generation APIs
+# Suno AI - https://suno.com/
+SUNO_API_KEY=your_suno_api_key_here
+
+# Beatoven - https://www.beatoven.ai/
+BEATOVEN_API_KEY=your_beatoven_api_key_here
+
+# ElevenLabs - https://elevenlabs.io/
+ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
+
+# =============================================================================
+# Database Configuration
+# =============================================================================
+
+# MongoDB connection string
+MONGODB_URL=mongodb://admin:password123@localhost:27017/music_from_drawings?authSource=admin
+
+# Redis connection string
+REDIS_URL=redis://localhost:6379
+
+# =============================================================================
+# Application Settings
+# =============================================================================
+
+# Application environment
+DEBUG=false
+LOG_LEVEL=INFO
+
+# Security
+SECRET_KEY=your-super-secret-key-change-in-production
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+# File storage
+UPLOAD_DIR=uploads
+MAX_FILE_SIZE=10485760
+
+# Rate limiting
+RATE_LIMIT_PER_MINUTE=60
+
+# =============================================================================
+# Monitoring & Analytics
+# =============================================================================
+
+# Enable metrics collection
+ENABLE_METRICS=true
+
+# Prometheus configuration
+PROMETHEUS_PORT=9090
+
+# Grafana configuration
+GRAFANA_PORT=3001
+GRAFANA_ADMIN_PASSWORD=admin123
+
+# =============================================================================
+# Frontend Configuration
+# =============================================================================
+
+# API base URL for frontend
+REACT_APP_API_URL=http://localhost:8000
+
+# Enable development features
+REACT_APP_DEBUG=false
+
+# =============================================================================
+# Production Settings
+# =============================================================================
+
+# CORS allowed origins (comma-separated)
+ALLOWED_HOSTS=localhost,127.0.0.1,yourdomain.com
+
+# SSL/TLS settings
+SSL_CERT_PATH=/etc/nginx/ssl/cert.pem
+SSL_KEY_PATH=/etc/nginx/ssl/key.pem
+
+# Email configuration (for notifications)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+
+# =============================================================================
+# Docker Configuration
+# =============================================================================
+
+# Docker compose project name
+COMPOSE_PROJECT_NAME=music-drawings-pro
+
+# Container resource limits
+BACKEND_MEMORY_LIMIT=1g
+FRONTEND_MEMORY_LIMIT=512m
+MONGODB_MEMORY_LIMIT=2g
+REDIS_MEMORY_LIMIT=256m
