@@ -1,0 +1,180 @@
+name: 🎨→🎵 CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '18'
+
+jobs:
+  # Backend Tests
+  backend-tests:
+    runs-on: ubuntu-latest
+    name: 🐍 Backend Tests
+    
+    services:
+      mongodb:
+        image: mongo:7.0
+        env:
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: password123
+        ports:
+          - 27017:27017
+      
+      redis:
+        image: redis:7.2-alpine
+        ports:
+          - 6379:6379
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: 📦 Install dependencies
+      run: |
+        cd backend
+        pip install -r requirements.txt
+    
+    - name: 🧪 Run tests
+      run: |
+        cd backend
+        pytest tests/ -v --cov=app --cov-report=xml
+    
+    - name: 📊 Upload coverage
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./backend/coverage.xml
+        flags: backend
+
+  # Frontend Tests
+  frontend-tests:
+    runs-on: ubuntu-latest
+    name: ⚛️ Frontend Tests
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: 📦 Install dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: 🧪 Run tests
+      run: |
+        cd frontend
+        npm test -- --coverage --watchAll=false
+    
+    - name: 🏗️ Build
+      run: |
+        cd frontend
+        npm run build
+
+  # Docker Build & Test
+  docker-tests:
+    runs-on: ubuntu-latest
+    name: 🐳 Docker Tests
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: 🐳 Build backend image
+      run: |
+        cd backend
+        docker build -t music-drawings-backend .
+    
+    - name: 🐳 Build frontend image
+      run: |
+        cd frontend
+        docker build -t music-drawings-frontend .
+    
+    - name: 🐳 Test Docker Compose
+      run: |
+        docker-compose -f docker-compose.yml config
+
+  # Security Scan
+  security-scan:
+    runs-on: ubuntu-latest
+    name: 🔒 Security Scan
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: 🐍 Python Security Scan
+      run: |
+        cd backend
+        pip install safety bandit
+        safety check -r requirements.txt
+        bandit -r app/
+    
+    - name: ⚛️ Node Security Scan
+      run: |
+        cd frontend
+        npm audit --audit-level moderate
+
+  # Code Quality
+  code-quality:
+    runs-on: ubuntu-latest
+    name: 📏 Code Quality
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: 🐍 Python Linting
+      run: |
+        cd backend
+        pip install black isort flake8 mypy
+        black --check app/
+        isort --check-only app/
+        flake8 app/
+        mypy app/
+    
+    - name: ⚛️ TypeScript Linting
+      run: |
+        cd frontend
+        npm install
+        npm run lint
+
+  # Deploy to Staging (on develop branch)
+  deploy-staging:
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    name: 🚀 Deploy to Staging
+    needs: [backend-tests, frontend-tests, docker-tests]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: 🚀 Deploy to staging
+      run: |
+        echo "Deploying to staging environment..."
+        # Add your deployment commands here
+
+  # Deploy to Production (on main branch)
+  deploy-production:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    name: 🌟 Deploy to Production
+    needs: [backend-tests, frontend-tests, docker-tests, security-scan, code-quality]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: 🌟 Deploy to production
+      run: |
+        echo "Deploying to production environment..."
+        # Add your deployment commands here
